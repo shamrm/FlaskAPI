@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block title%}Login Page{% endblock %}
+{% block content %}
+<form action="#" method="post">
+    <p>Enter Your email:</p>
+    <p><input type="text" name="email" placeholder="email" value="{{email if email}}"/></p>
+    <p>Enter Your email:</p>
+    <p><input type="text" name="password" placeholder="password" value="{{password if password}}"/></p>
+    <p><input type="submit" value="submit"/></p>
+</form>
+{% endblock %}
