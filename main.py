@@ -25,7 +25,29 @@ def register():
         new_user = users(email=request.form['email'], password=request.form['password'])
         db.session.add(new_user)
         db.session.commit()
-        return render_template('login.html')
-    return render_template('signup.html')
+
+        return render_template("login.html")
+
+    else:
+        return render_template('signup.html')
+
+@app.route("/login", methods = ["POST", "GET"])
+def login():
+
+    if request.method == 'POST':
+        session.permanent = True
+        email = request.form["email"]
+        password = request.form["password"]
+
+        found_user = users.query.filter_by(email=email, password=password).first()
+
+        if not found_user:
+            return render_template("signup.html")
 
 
+    return render_template("login.html")
+
+if __name__ == "__main__":
+    # with app.app_context():
+    #     db.create_all() #this creates db if it doesnt already exist in our program
+    app.run(debug = True)
