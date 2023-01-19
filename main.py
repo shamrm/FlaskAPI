@@ -46,15 +46,21 @@ def login():
             session["password"] = password
             return render_template("user.html", email = email, password = password)
         else:
-            return render_template("signup.html")
+            if "email" in session:
+                return redirect(url_for("user"))
+            # return render_template("signup.html")
 
-    return render_template("login.html")
+            return render_template("login.html")
 
-# @app.route("/user", methods=["POST", "GET"])
-# def user():
+@app.route("/user", methods=["POST", "GET"])
+def user():
+    if request.method == "GET":
+        if 'email' and 'password' in session:
+            email = session["email"]
+            password = session["password"]
 
-    # if request.method == "GET":
-
+            # if request.method == "POST":
+        return render_template("user.html", email=email, password=password)
 
 if __name__ == "__main__":
     # with app.app_context():
