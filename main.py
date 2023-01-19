@@ -18,3 +18,13 @@ class users(db.Model):
         self.email = email
         self.password = password
 
+@app.route("/signup", methods=['GET', 'POST'])
+def register():
+
+    if request.method == 'POST':
+        new_user = users(email=request.form['email'], password=request.form['password'])
+        db.session.add(new_user)
+        db.session.commit()
+        return render_template('login.html')
+    return render_template('signup.html')
+
