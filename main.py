@@ -41,11 +41,20 @@ def login():
 
         found_user = users.query.filter_by(email=email, password=password).first()
 
-        if not found_user:
+        if found_user:
+            session["email"] = email
+            session["password"] = password
+            return render_template("user.html", email = email, password = password)
+        else:
             return render_template("signup.html")
 
-
     return render_template("login.html")
+
+# @app.route("/user", methods=["POST", "GET"])
+# def user():
+
+    # if request.method == "GET":
+
 
 if __name__ == "__main__":
     # with app.app_context():
